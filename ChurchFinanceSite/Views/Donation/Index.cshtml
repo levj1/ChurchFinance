@@ -1,0 +1,27 @@
+﻿@model ChurchFinanceSite.ViewModels.DonationViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Donations</h2>
+<table>
+    <thead>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Donation Type</th>
+    </thead>
+    <tbody>
+        @foreach (var donation in Model.Donations)
+        {
+            <tr>
+                <td>$@donation.Amount</td>
+                <td>@donation.DonationDate</td>
+                <td>@donation.DonationType</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
