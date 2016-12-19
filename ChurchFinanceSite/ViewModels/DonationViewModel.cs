@@ -8,6 +8,7 @@ namespace ChurchFinanceSite.ViewModels
 {
     public class DonationViewModel
     {
+        public List<Giver> Givers { get; set; }
         public List<Donation> Donations { get; set; }
     }
 }

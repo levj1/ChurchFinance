@@ -5,23 +5,32 @@
 }
 
 <h2>Donations</h2>
-<table>
+<table class="table table-striped table-hover ">
     <thead>
-        <th>Amount</th>
-        <th>Date</th>
-        <th>Donation Type</th>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Donation Type</th>
+        </tr>
     </thead>
     <tbody>
-        @foreach (var donation in Model.Donations)
+        @foreach (var giver in Model.Givers)
         {
-            <tr>
-                <td>$@donation.Amount</td>
-                <td>@donation.DonationDate</td>
-                <td>@donation.DonationType</td>
-            </tr>
+            foreach (var donation in Model.Donations)
+            {
+                if (giver.ID == donation.GiverID)
+                {
+                    <tr>
+                        <td>@giver.FirstName @giver.Middle @giver.LastName</td>
+                        <td>@donation.Amount</td>
+                        <td>@donation.DonationType</td>
+                        <td>@donation.DonationDate</td>
+                    </tr>
+                }
+            }
+
         }
     </tbody>
-</table>
-
-
+</table> 
 

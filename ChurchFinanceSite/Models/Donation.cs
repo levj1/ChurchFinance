@@ -20,5 +20,7 @@ namespace ChurchFinanceSite.Models
         public decimal Amount { get; set; }
         public DateTime DonationDate { get; set; }
         public DonationType DonationType { get; set; }
+        //public Giver Giver { get; set; }
+        public int GiverID { get; set; }
     }
 }
