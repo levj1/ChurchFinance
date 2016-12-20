@@ -53,7 +53,6 @@ namespace ChurchFinanceSite.Controllers
         }
         public ActionResult Edit(int donationId, int giverId)
         {
-
             return Content(string.Format("Donationid = {0} - GiverId = {1}", donationId, giverId));
         }
     }
