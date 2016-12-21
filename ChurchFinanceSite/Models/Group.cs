@@ -10,5 +10,10 @@ namespace ChurchFinanceSite.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public DateTime GroupDateCreated { get; set; }
+
+        public Group()
+        {
+            GroupDateCreated = DateTime.Now;
+        }
     }
 }
