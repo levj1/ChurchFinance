@@ -10,20 +10,28 @@ namespace ChurchFinanceSite.Controllers
 {
     public class GiverController : Controller
     {
-        List<Giver> givers;
+        private ApplicationDbContext _context;
+
+        public GiverController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         // GET: Giver
         public ActionResult Index()
         {
-            givers = new List<Giver>
-            {
-                new Giver {ID = 1, FirstName = "James", LastName = "Leveille" },
-                new Giver {ID = 2, FirstName = "Markys", LastName = "Jean Pierre" },
-                new Giver {ID = 3, FirstName = "Kendall", LastName = "Leveille" },
-                new Giver {ID = 4, FirstName = "Barbara", LastName = "Hypolite" }
-            };
+            var givers = _context.Givers;
             return View(givers.ToList());
         }
 
+        public ActionResult GiverAndAddress()
+        {
+            return View();
+        }
        
     }
 }
