@@ -1,11 +1,7 @@
 ﻿using ChurchFinanceSite.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-
+using System.Data.Entity;
 namespace ChurchFinanceSite.Controllers
 {
     public class GiverController : Controller
@@ -24,13 +20,16 @@ namespace ChurchFinanceSite.Controllers
         // GET: Giver
         public ActionResult Index()
         {
-            var givers = _context.Givers;
-            return View(givers.ToList());
+            var givers = _context.Givers.Include(c => c.Address).ToList();
+            return View(givers);
         }
 
-        public ActionResult GiverAndAddress()
+        public ActionResult Detail(int id)
         {
-            return View();
+            var giver = _context.Givers.Include(c => c.Address).SingleOrDefault(c => c.ID == id);
+            if (giver == null)
+                return HttpNotFound();
+            return View(giver);
         }
        
     }

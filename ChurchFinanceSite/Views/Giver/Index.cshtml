@@ -5,7 +5,7 @@
 }
 
 <h2>Givers</h2>
-@if (Model == null)
+@if (!Model.Any())
 {
     <text>There are no customers yet.</text>
 }
@@ -17,6 +17,7 @@ else
             <th>First Name</th>
             <th>Middle Name</th>
             <th>First Name</th>
+            <th>Address</th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,11 @@ else
                 <td>
                     @item.LastName
                 </td>
+                <td>
+                    @item.Address.AddressLine1 @item.Address.AddressLine2 <br />
+                    @item.Address.City, @item.Address.State @item.Address.ZipCode
+                </td>
+                <td>@Html.ActionLink("Detail", "Detail", new { id = item.ID }, null)</td>
             </tr>
         }
     </tbody>

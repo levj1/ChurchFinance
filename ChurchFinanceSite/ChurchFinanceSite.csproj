@@ -230,6 +230,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DonationViewModel.cs" />
+    <Compile Include="ViewModels\GiverViewModel.cs" />
     <Compile Include="ViewModels\GroupController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +296,7 @@
     <Content Include="Views\Donation\Create.cshtml" />
     <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Giver\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
