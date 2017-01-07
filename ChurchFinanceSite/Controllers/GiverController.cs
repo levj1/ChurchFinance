@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
+using ChurchFinanceSite.ViewModels;
+
 namespace ChurchFinanceSite.Controllers
 {
     public class GiverController : Controller
@@ -30,6 +32,28 @@ namespace ChurchFinanceSite.Controllers
             if (giver == null)
                 return HttpNotFound();
             return View(giver);
+        }
+
+        public ActionResult GiverForm()
+        {
+            var giver = new Giver();
+            return View(giver);
+        }
+        [HttpPost]
+        public ActionResult Create(Giver giver)
+        {
+            _context.Givers.Add(giver);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Giver");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var giver = _context.Givers.SingleOrDefault(c => c.ID == id);
+             if (giver == null)
+                return HttpNotFound();
+            return View("GiverForm", giver);
         }
        
     }

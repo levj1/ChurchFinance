@@ -12,6 +12,11 @@ namespace ChurchFinanceSite.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         // GET: Donation
         public ActionResult Index()
         {

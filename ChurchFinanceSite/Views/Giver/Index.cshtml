@@ -7,7 +7,7 @@
 <h2>Givers</h2>
 @if (!Model.Any())
 {
-    <text>There are no customers yet.</text>
+    <text>There are no giver yet.</text>
 }
 else
 {
@@ -37,7 +37,7 @@ else
                     @item.Address.AddressLine1 @item.Address.AddressLine2 <br />
                     @item.Address.City, @item.Address.State @item.Address.ZipCode
                 </td>
-                <td>@Html.ActionLink("Detail", "Detail", new { id = item.ID }, null)</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, null)</td>
             </tr>
         }
     </tbody>

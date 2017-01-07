@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201701070115038_InsertDataIntoDonationType.Designer.cs">
       <DependentUpon>201701070115038_InsertDataIntoDonationType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701070524016_AddAnnotationInGiver.cs" />
+    <Compile Include="Migrations\201701070524016_AddAnnotationInGiver.Designer.cs">
+      <DependentUpon>201701070524016_AddAnnotationInGiver.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -240,6 +244,7 @@
     <Compile Include="ViewModels\DonationViewModel.cs" />
     <Compile Include="ViewModels\GiverViewModel.cs" />
     <Compile Include="ViewModels\GroupController.cs" />
+    <Compile Include="ViewModels\NewGiverViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-spacelab.css" />
@@ -306,6 +311,7 @@
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Giver\Detail.cshtml" />
     <Content Include="Views\Donation\Detail.cshtml" />
+    <Content Include="Views\Giver\GiverForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701070115038_InsertDataIntoDonationType.resx">
       <DependentUpon>201701070115038_InsertDataIntoDonationType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701070524016_AddAnnotationInGiver.resx">
+      <DependentUpon>201701070524016_AddAnnotationInGiver.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
