@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+using System.ComponentModel.DataAnnotations;
 namespace ChurchFinanceSite.Models
 {
-    public enum DonationType
+    public class DonationType
     {
-        Tithe,
-        Offering,
-        Donation,
-        Pledge,
-        Mission,
-        Other
+        public int ID { get; set; }
+        [StringLength(75)]
+        public string Name { get; set; }
+
+        //Tithe,
+        //Offering,
+        //Donation,
+        //Pledge,
+        //Mission,
+        //Other
     }
     public class Donation
     {

@@ -219,6 +219,14 @@
     <Compile Include="Migrations\201701030340219_PopulateGivers.Designer.cs">
       <DependentUpon>201701030340219_PopulateGivers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701060039442_AddDonationModel.cs" />
+    <Compile Include="Migrations\201701060039442_AddDonationModel.Designer.cs">
+      <DependentUpon>201701060039442_AddDonationModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701070115038_InsertDataIntoDonationType.cs" />
+    <Compile Include="Migrations\201701070115038_InsertDataIntoDonationType.Designer.cs">
+      <DependentUpon>201701070115038_InsertDataIntoDonationType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -297,6 +305,7 @@
     <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Giver\Detail.cshtml" />
+    <Content Include="Views\Donation\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -321,6 +330,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701030340219_PopulateGivers.resx">
       <DependentUpon>201701030340219_PopulateGivers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701060039442_AddDonationModel.resx">
+      <DependentUpon>201701060039442_AddDonationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701070115038_InsertDataIntoDonationType.resx">
+      <DependentUpon>201701070115038_InsertDataIntoDonationType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

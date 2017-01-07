@@ -21,7 +21,7 @@ namespace ChurchFinanceSite.Controllers
         public ActionResult Index()
         {
             var givers = _context.Givers.Include(c => c.Address).ToList();
-            return View(givers);
+            return View(givers.ToList());
         }
 
         public ActionResult Detail(int id)

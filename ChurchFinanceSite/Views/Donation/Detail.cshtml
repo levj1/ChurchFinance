@@ -1,0 +1,12 @@
+﻿@model ChurchFinanceSite.Models.Donation
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Donation Detail</h2>
+@Model.Giver.FirstName @Model.Giver.Middle @Model.Giver.LastName <br />
+@Model.Amount <br />
+@Model.DonationDate <br />
+@Model.DonationType.Name<br />
+
