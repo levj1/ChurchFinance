@@ -244,7 +244,7 @@
     <Compile Include="ViewModels\DonationViewModel.cs" />
     <Compile Include="ViewModels\GiverViewModel.cs" />
     <Compile Include="ViewModels\GroupController.cs" />
-    <Compile Include="ViewModels\NewGiverViewModel.cs" />
+    <Compile Include="ViewModels\GiverFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-spacelab.css" />

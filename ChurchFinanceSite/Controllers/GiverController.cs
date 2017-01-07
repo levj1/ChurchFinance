@@ -34,15 +34,32 @@ namespace ChurchFinanceSite.Controllers
             return View(giver);
         }
 
-        public ActionResult GiverForm()
+        public ActionResult New()
         {
-            var giver = new Giver();
-            return View(giver);
+            //var giver = new Giver();
+            var vm = new GiverFormViewModel();
+            return View("GiverForm", vm);
         }
         [HttpPost]
-        public ActionResult Create(Giver giver)
+        public ActionResult Save(GiverFormViewModel vm)
         {
-            _context.Givers.Add(giver);
+            if(vm.Giver.ID == 0)
+            {
+                _context.Givers.Add(vm.Giver);
+            }
+            else
+            {
+                var giverInDb = _context.Givers.SingleOrDefault(c => c.ID == vm.Giver.ID);
+                var addressInDb = _context.Addresses.SingleOrDefault(c => c.ID == giverInDb.AddressId);
+                giverInDb.FirstName = vm.Giver.FirstName;
+                giverInDb.LastName = vm.Giver.LastName;
+                giverInDb.Middle = vm.Giver.Middle;
+                addressInDb.AddressLine1 = vm.Giver.Address.AddressLine1;
+                addressInDb.AddressLine2 = vm.Giver.Address.AddressLine2;
+                addressInDb.City = vm.Giver.Address.City;
+                addressInDb.State = vm.Giver.Address.State;
+                addressInDb.ZipCode = vm.Giver.Address.ZipCode;
+            }
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Giver");
@@ -51,9 +68,14 @@ namespace ChurchFinanceSite.Controllers
         public ActionResult Edit(int id)
         {
             var giver = _context.Givers.SingleOrDefault(c => c.ID == id);
+            var address = _context.Addresses.SingleOrDefault(c => c.ID == giver.AddressId);
+            var vm = new GiverFormViewModel
+            {
+                Giver = giver
+            };
              if (giver == null)
                 return HttpNotFound();
-            return View("GiverForm", giver);
+            return View("GiverForm", vm);
         }
        
     }

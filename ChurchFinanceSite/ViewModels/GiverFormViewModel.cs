@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ChurchFinanceSite.ViewModels
 {
-    public class NewGiverViewModel
+    public class GiverFormViewModel
     {
         public Giver Giver { get; set; }
         public Address Address { get; set; }

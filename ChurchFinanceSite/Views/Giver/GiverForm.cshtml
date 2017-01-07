@@ -1,70 +1,81 @@
-﻿@model ChurchFinanceSite.Models.Giver
+﻿@model ChurchFinanceSite.ViewModels.GiverFormViewModel
     
 @{
     ViewBag.Title = "New";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Contact</h2>
-@using (Html.BeginForm("Create", "Giver"))
+@if (Model.Giver.ID == 0)
+{
+    <h2>New Giver</h2>
+}
+else
+{
+    <h2>Save Contact</h2>
+}
+
+@Html.ActionLink("New", "New")
+@using (Html.BeginForm("Save", "Giver"))
 {
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.FirstName)
-                    @Html.TextBoxFor(c => c.FirstName, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.FirstName)
+                    @Html.TextBoxFor(c => c.Giver.FirstName, new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.Middle)
-                    @Html.TextBoxFor(c => c.Middle, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.Middle)
+                    @Html.TextBoxFor(c => c.Giver.Middle, new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.LastName)
-                    @Html.TextBoxFor(c => c.LastName, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.LastName)
+                    @Html.TextBoxFor(c => c.Giver.LastName, new { @class = "form-control" })
                 </div>
             </div>
         </div>
         <div class="row"> 
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.Address.AddressLine1)
-                    @Html.TextBoxFor(c => c.Address.AddressLine1, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.Address.AddressLine1)
+                    @Html.TextBoxFor(c => c.Giver.Address.AddressLine1, new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.Address.AddressLine2)
-                    @Html.TextBoxFor(c => c.Address.AddressLine2, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.Address.AddressLine2)
+                    @Html.TextBoxFor(c => c.Giver.Address.AddressLine2, new { @class = "form-control" })
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.Address.City)
-                    @Html.TextBoxFor(c => c.Address.City, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.Address.City)
+                    @Html.TextBoxFor(c => c.Giver.Address.City, new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.Address.State)
-                    @Html.TextBoxFor(c => c.Address.State, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.Address.State)
+                    @Html.TextBoxFor(c => c.Giver.Address.State, new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    @Html.LabelFor(c => c.Address.ZipCode)
-                    @Html.TextBoxFor(c => c.Address.ZipCode, new { @class = "form-control" })
+                    @Html.LabelFor(c => c.Giver.Address.ZipCode)
+                    @Html.TextBoxFor(c => c.Giver.Address.ZipCode, new { @class = "form-control" })
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
+                @Html.HiddenFor(m => m.Giver.ID)
+                @Html.HiddenFor(m => m.Giver.Address.ID)
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
