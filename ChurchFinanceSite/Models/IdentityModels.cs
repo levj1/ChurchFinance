@@ -23,6 +23,7 @@ namespace ChurchFinanceSite.Models
         public DbSet<Giver> Givers { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<DonationType> DonationType { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.Entity;
 using System.Web.Mvc;
+using ChurchFinanceSite.ViewModels;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -31,5 +32,33 @@ namespace ChurchFinanceSite.Controllers
                 return HttpNotFound();
             return View(donation);
         }
+
+        public ActionResult DonationForm()
+        {
+            var donationType = _context.DonationType.ToList();
+            var giver = _context.Givers.ToList();
+            var viewModel = new DonationFormViewModel
+            {
+                Giver = giver,                
+                DonationType = donationType
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Donation donation)
+        {
+            _context.Donations.Add(donation);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Donation");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            _context.Donations.SingleOrDefault(x => x.ID == id);
+
+            return View();
+        }
+
     }
 }
