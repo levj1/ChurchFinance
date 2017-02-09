@@ -5,10 +5,14 @@
 }
 
 <h2>Donations</h2>
-@Html.ActionLink("Create New", "Create")
+<div>
+    @Html.ActionLink("Create New", "Create")
+</div>
 @if (!Model.Any())
 {
-    <text>No donation yet.</text>
+    <div>
+        <text>No donation yet.</text>
+    </div>
 }
 else
 {

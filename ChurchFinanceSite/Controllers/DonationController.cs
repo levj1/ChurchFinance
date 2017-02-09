@@ -48,9 +48,22 @@ namespace ChurchFinanceSite.Controllers
         [HttpPost]
         public ActionResult Create(Donation donation)
         {
-            _context.Donations.Add(donation);
-            _context.SaveChanges();
+            //_context.Donations.Add(donation);
+            //_context.SaveChanges();
             return RedirectToAction("Index", "Donation");
+        }
+
+        
+        public ActionResult Create()
+        {
+            var donationTypeList = _context.DonationType.ToList();
+            var giverList = _context.Givers.ToList();
+            var viewModel = new DonationFormViewModel
+            {
+                Giver = giverList,
+                DonationType = donationTypeList
+            };
+            return View(viewModel);
         }
 
         public ActionResult Edit(int id)
