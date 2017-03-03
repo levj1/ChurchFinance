@@ -5,31 +5,27 @@
 }
 
 <h2>New Donation</h2>
-@using(@Html.BeginForm("Create", "Donation"))
+@using(@Html.BeginForm("DonationForm", "Donation"))
 {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger"})
     <div class="container-fluid">
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(c => c.Donation.GiverID)
-                @Html.DropDownListFor(c => c.Donation.GiverID, new SelectList(Model.Giver, "ID", "FullName"), "", new { @class = "form-control" })
+                @Html.LabelFor(c => c.SelectedGiverId)
+                @Html.DropDownListFor(c => c.SelectedGiverId, Model.Givers, "", new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(c => c.Donation.DonationTypeID)
-                @Html.DropDownListFor(c => c.Donation.DonationTypeID, new SelectList(Model.DonationType, "ID", "Name"), "", new { @class = "form-control" })
+                @Html.LabelFor(c => c.SelectedDonationTypeId)
+                @Html.DropDownListFor(c => c.SelectedDonationTypeId, Model.DonationTypes, "", new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 @Html.LabelFor(c => c.Donation.Amount)
                 @Html.TextBoxFor(c => c.Donation.Amount, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                @Html.LabelFor(c => c.Donation.DonationDate)
-                @Html.TextBoxFor(c => c.Donation.DonationDate, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">

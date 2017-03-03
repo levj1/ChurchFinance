@@ -3,6 +3,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web.Mvc;
 using ChurchFinanceSite.ViewModels;
+using System.Collections.Generic;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -35,22 +36,25 @@ namespace ChurchFinanceSite.Controllers
 
         public ActionResult DonationForm()
         {
-            var donationType = _context.DonationType.ToList();
-            var giver = _context.Givers.ToList();
             var viewModel = new DonationFormViewModel
             {
-                Giver = giver,                
-                DonationType = donationType
+                DonationTypes = GetDonationTypes(),
+                Givers = GetGivers()
+
             };
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Donation donation)
+        public ActionResult DonationForm(DonationFormViewModel donationVM)
         {
-            //_context.Donations.Add(donation);
-            //_context.SaveChanges();
-            return RedirectToAction("Index", "Donation");
+            if (ModelState.IsValid)
+            {
+                //_context.Donations.Add(donation);
+                //_context.SaveChanges();
+                return RedirectToAction("Index", "Donation");
+            }
+            return View();
         }
 
         
@@ -71,6 +75,28 @@ namespace ChurchFinanceSite.Controllers
             _context.Donations.SingleOrDefault(x => x.ID == id);
 
             return View();
+        }
+
+        private IEnumerable<SelectListItem> GetDonationTypes()
+        {
+            var donationTypes = _context.DonationType.Select(
+                x => new SelectListItem
+                {
+                    Value = x.ID.ToString(),
+                    Text = x.Name
+                });
+            return new SelectList(donationTypes, "Value", "Text");
+        }
+
+        private IEnumerable<SelectListItem> GetGivers()
+        {
+            var givers = _context.Givers.Select(
+                x => new SelectListItem
+                {
+                    Value = x.ID.ToString(),
+                    Text = x.FirstName + " " + x.Middle + " " + x.LastName
+                });
+            return new SelectList(givers, "Value", "Text");
         }
 
     }

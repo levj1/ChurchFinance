@@ -247,6 +247,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Donation.cs" />
+    <Compile Include="Models\DonationType.cs" />
     <Compile Include="Models\Giver.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IdentityModels.cs" />
