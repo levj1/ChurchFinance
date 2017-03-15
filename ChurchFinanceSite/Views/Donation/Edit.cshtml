@@ -1,0 +1,21 @@
+﻿@model ChurchFinanceSite.Models.Donation
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<p>@Model.Giver.FirstName @Model.Giver.Middle @Model.Giver.LastName</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
+
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.Amount, new { htmlAttributes = new { @class = "col-md-2" } })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Amount, new {htmlAttributes = new { @class = "form-control" }})
+        </div>
+    </div>
+    <button type="submit" class="btn-default">Save</button>
+}

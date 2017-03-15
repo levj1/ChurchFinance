@@ -6,7 +6,7 @@
 
 <h2>Donations</h2>
 <div>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "DonationForm")
 </div>
 @if (!Model.Any())
 {
@@ -23,6 +23,7 @@ else
             <th>Amount</th>
             <th>Date</th>
             <th>Donation Type</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -33,9 +34,14 @@ else
                 <td>@donation.Amount</td>
                 <td>@donation.DonationDate</td>
                 <td>@donation.DonationType.Name</td>
-                <td>@Html.ActionLink("Detail", "Detail", new { id = donation.ID }, null)</td>
+                <td>                    
+                    @Html.ActionLink("Detail", "Detail", new {  id = donation.ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = donation.ID })|
+                    @Html.ActionLink("Delete", "Delete", new { id = donation.ID })
+                </td>
             </tr>
         }
     </tbody>
 </table> 
 }
+

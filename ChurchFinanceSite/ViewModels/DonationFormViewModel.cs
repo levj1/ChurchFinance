@@ -25,7 +25,6 @@ namespace ChurchFinanceSite.ViewModels
 
         public DonationFormViewModel()
         {
-            
         }
     }
 }

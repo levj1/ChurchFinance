@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Web.Mvc;
 using ChurchFinanceSite.ViewModels;
 using System.Collections.Generic;
+using System;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -22,7 +23,7 @@ namespace ChurchFinanceSite.Controllers
         // GET: Donation
         public ActionResult Index()
         {
-            var donations = _context.Donations.Include(x => x.Giver).Include(x => x.DonationType);
+            var donations = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
             return View(donations);
         }
 
@@ -50,31 +51,44 @@ namespace ChurchFinanceSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_context.Donations.Add(donation);
-                //_context.SaveChanges();
+                donationVM.Donation.DonationDate = DateTime.Now;
+                donationVM.Donation.DonationTypeID = donationVM.SelectedDonationTypeId;
+                donationVM.Donation.GiverID = donationVM.SelectedGiverId;
+
+                _context.Donations.Add(donationVM.Donation);
+                _context.SaveChanges();
                 return RedirectToAction("Index", "Donation");
             }
-            return View();
+            var viewModel = new DonationFormViewModel
+            {
+                SelectedDonationTypeId = donationVM.SelectedDonationTypeId,
+                SelectedGiverId = donationVM.SelectedGiverId,
+                DonationTypes = GetDonationTypes(),
+                Givers = GetGivers()
+
+            };
+            return View("DonationForm", viewModel);
         }
 
         
-        public ActionResult Create()
+        public ActionResult Edit(int? id)
         {
-            var donationTypeList = _context.DonationType.ToList();
-            var giverList = _context.Givers.ToList();
-            var viewModel = new DonationFormViewModel
-            {
-                Giver = giverList,
-                DonationType = donationTypeList
-            };
-            return View(viewModel);
+            var donation = _context.Donations.Where(x => x.ID == id).Include(x => x.Giver).Include(x => x.DonationType).SingleOrDefault();
+            if (id == null || donation == null)
+                return HttpNotFound();
+
+            return View(donation);
         }
 
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public ActionResult Edit(Donation donation)
         {
-            _context.Donations.SingleOrDefault(x => x.ID == id);
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                // update db
+                RedirectToAction("Index");
+            }
+            return Edit(donation);
         }
 
         private IEnumerable<SelectListItem> GetDonationTypes()

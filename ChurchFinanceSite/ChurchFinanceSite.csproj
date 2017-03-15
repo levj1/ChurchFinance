@@ -327,6 +327,7 @@
     <Content Include="Views\Donation\Detail.cshtml" />
     <Content Include="Views\Giver\GiverForm.cshtml" />
     <Content Include="Views\Donation\DonationForm.cshtml" />
+    <Content Include="Views\Donation\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
