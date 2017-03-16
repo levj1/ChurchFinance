@@ -1,21 +1,36 @@
-﻿@model ChurchFinanceSite.Models.Donation
+﻿@model ChurchFinanceSite.ViewModels.EditDonation
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
-<p>@Model.Giver.FirstName @Model.Giver.Middle @Model.Giver.LastName</p>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
-
     
     <div class="form-group">
-        @Html.LabelFor(model => model.Amount, new { htmlAttributes = new { @class = "col-md-2" } })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Amount, new {htmlAttributes = new { @class = "form-control" }})
+        <div class="col-lg-12">
+            @Html.Label(Model.Giver.FullName)
         </div>
     </div>
-    <button type="submit" class="btn-default">Save</button>
+    <div class="form-group">
+        <div class="col-lg-12">
+            @Html.LabelFor(model => model.Donation.Amount)
+            @Html.EditorFor(model => model.Donation.Amount, new { htmlAttributes = new { @class = "form-control" } })
+        </div>         
+    </div>
+    <div class="form-group">
+        <div class="col-lg-12">
+            @Html.LabelFor(c => c.SelectedDonationTypeId)
+            @Html.DropDownListFor(c => c.SelectedDonationTypeId, Model.SelectListDonationTypes, "", new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Donation.ID)
+    @Html.HiddenFor(x => x.Donation.GiverID)
+    <div class="form-group">
+        <button type="submit" class="btn-default">Save</button>
+    </div>
 }
+<br />
+@Html.ActionLink("Back to List", "Index")

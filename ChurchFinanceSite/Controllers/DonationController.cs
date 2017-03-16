@@ -73,22 +73,50 @@ namespace ChurchFinanceSite.Controllers
         
         public ActionResult Edit(int? id)
         {
-            var donation = _context.Donations.Where(x => x.ID == id).Include(x => x.Giver).Include(x => x.DonationType).SingleOrDefault();
+            var donation = _context.Donations.Where(x => x.ID == id).SingleOrDefault();
             if (id == null || donation == null)
                 return HttpNotFound();
 
-            return View(donation);
+
+            var donationVM = new EditDonation
+            {
+                SelectedDonationTypeId = donation.DonationTypeID,
+                Donation = donation,
+                Giver = _context.Givers.Where(x => x.ID == donation.GiverID).SingleOrDefault(),
+                SelectListDonationTypes = GetDonationTypes()
+            };
+            return View(donationVM);
         }
 
         [HttpPost]
-        public ActionResult Edit(Donation donation)
+        public ActionResult Edit(EditDonation donationVM)
         {
             if (ModelState.IsValid)
             {
-                // update db
-                RedirectToAction("Index");
+                if (donationVM.Donation.Amount == 0)
+                {
+                    ModelState.AddModelError(string.Empty, "Amount can't be zero.");
+                }
+                else
+                {
+                    // update db
+                    var dbDonation = _context.Donations.Where(x => x.ID == donationVM.Donation.ID).SingleOrDefault();
+                    dbDonation.Amount = donationVM.Donation.Amount;
+                    donationVM.Donation.DonationUpdatedDate = DateTime.Now;
+                    dbDonation.DonationUpdatedDate = donationVM.Donation.DonationUpdatedDate;
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            return Edit(donation);
+            
+            var EditDonationVM = new EditDonation
+            {
+                SelectedDonationTypeId = donationVM.Donation.DonationTypeID,
+                Giver = _context.Givers.Where(x => x.ID == donationVM.Donation.GiverID).SingleOrDefault(),
+                Donation = donationVM.Donation,
+                SelectListDonationTypes = GetDonationTypes()
+            };
+            return View(EditDonationVM);
         }
 
         private IEnumerable<SelectListItem> GetDonationTypes()

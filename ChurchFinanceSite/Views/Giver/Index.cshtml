@@ -37,7 +37,11 @@ else
                     @item.Address.AddressLine1 @item.Address.AddressLine2 <br />
                     @item.Address.City, @item.Address.State @item.Address.ZipCode
                 </td>
-                <td>@Html.ActionLink("Edit", "Edit", new { id = item.ID }, null)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, null)|
+                    @Html.ActionLink("Detail", "Detail", new { id = item.ID }, null)|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, null)
+                </td>
             </tr>
         }
     </tbody>

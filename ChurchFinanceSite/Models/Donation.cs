@@ -12,6 +12,9 @@ namespace ChurchFinanceSite.Models
         [Display(Name = "Donation Date")]
         public DateTime DonationDate { get; set; }
 
+        [Display(Name = "Updated Date")]
+        public DateTime DonationUpdatedDate { get; set; }
+
         public DonationType DonationType { get; set; }
 
         [Display(Name = "Donation Type")]

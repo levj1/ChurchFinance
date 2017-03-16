@@ -8,19 +8,17 @@ using System.Web.Mvc;
 
 namespace ChurchFinanceSite.ViewModels
 {
-    public class DonationFormViewModel
+    public class EditDonation
     {
         public Donation Donation { get; set; }
+        public Giver Giver { get; set; }
 
+        [Required]
         [Display(Name = "Donation Type")]
         public int SelectedDonationTypeId { get; set; }
-        public IEnumerable<SelectListItem> DonationTypes { get; set; }
+        public IEnumerable<SelectListItem> SelectListDonationTypes { get; set; }
 
-        [Display(Name = "Giver's Name")]
-        public int SelectedGiverId { get; set; }
-        public IEnumerable<SelectListItem> Givers { get; set; }
-
-        public DonationFormViewModel()
+        public EditDonation()
         {
         }
     }

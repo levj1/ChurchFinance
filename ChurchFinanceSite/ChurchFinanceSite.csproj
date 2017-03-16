@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201701072242424_UpdatedonationTypeid.Designer.cs">
       <DependentUpon>201701072242424_UpdatedonationTypeid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703162013332_DonationAddProperty.cs" />
+    <Compile Include="Migrations\201703162013332_DonationAddProperty.Designer.cs">
+      <DependentUpon>201703162013332_DonationAddProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -256,6 +260,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DonationFormViewModel.cs" />
     <Compile Include="ViewModels\DonationViewModel.cs" />
+    <Compile Include="ViewModels\EditDonation.cs" />
     <Compile Include="ViewModels\GiverViewModel.cs" />
     <Compile Include="ViewModels\GroupController.cs" />
     <Compile Include="ViewModels\GiverFormViewModel.cs" />
@@ -370,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701072242424_UpdatedonationTypeid.resx">
       <DependentUpon>201701072242424_UpdatedonationTypeid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703162013332_DonationAddProperty.resx">
+      <DependentUpon>201703162013332_DonationAddProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
