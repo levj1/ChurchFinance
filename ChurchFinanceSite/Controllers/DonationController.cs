@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using ChurchFinanceSite.ViewModels;
 using System.Collections.Generic;
 using System;
+using System.Net;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -52,11 +53,21 @@ namespace ChurchFinanceSite.Controllers
             if (ModelState.IsValid)
             {
                 donationVM.Donation.DonationDate = DateTime.Now;
+                donationVM.Donation.DonationUpdatedDate = DateTime.Now;
                 donationVM.Donation.DonationTypeID = donationVM.SelectedDonationTypeId;
                 donationVM.Donation.GiverID = donationVM.SelectedGiverId;
 
-                _context.Donations.Add(donationVM.Donation);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Donations.Add(donationVM.Donation);
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                
                 return RedirectToAction("Index", "Donation");
             }
             var viewModel = new DonationFormViewModel
@@ -119,6 +130,28 @@ namespace ChurchFinanceSite.Controllers
             return View(EditDonationVM);
         }
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var donationToDelete = _context.Donations.FirstOrDefault(x => x.ID == id);
+
+            if (donationToDelete == null)
+                return HttpNotFound();
+
+            try
+            {
+                _context.Donations.Remove(donationToDelete);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RedirectToAction("Index");
+        }
+
+       
         private IEnumerable<SelectListItem> GetDonationTypes()
         {
             var donationTypes = _context.DonationType.Select(

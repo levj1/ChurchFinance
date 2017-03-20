@@ -33,42 +33,39 @@ namespace ChurchFinanceSite.Controllers.Api
 
 
         // Get api/giver/id
-        public Giver GetGiver(int? id)
+        public IHttpActionResult GetGiver(int? id)
         {
             var giver = _context.Givers.Where(x => x.ID == id).SingleOrDefault();
 
             if (giver == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return giver;
+            return Ok(Mapper.Map<Giver, GiverDto>(giver));
         }
 
         // Post 
         [HttpPost]
-        public Giver CreateGiver(Giver giver)
+        public IHttpActionResult CreateGiver(GiverDto giverDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-
+                return BadRequest();
+            var giver = Mapper.Map<GiverDto, Giver>(giverDto);
             _context.Givers.Add(giver);
             _context.SaveChanges();
 
-            return giver;
+            giverDto.ID = giver.ID;
+            return Created(new Uri(Request.RequestUri + "/" + giver.ID), giverDto);
         }
 
-        public void UpdateGiver(int id, Giver giver)
+        public void UpdateGiver(int id, GiverDto giverDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             var dbGiver = _context.Givers.FirstOrDefault(x => x.ID == id);
             if (dbGiver == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            dbGiver.FirstName = giver.FirstName;
-            dbGiver.Middle = giver.Middle;
-            dbGiver.LastName = giver.LastName;
-            dbGiver.AddressId = giver.AddressId;
-
+            Mapper.Map(giverDto, dbGiver);
+            
             _context.SaveChanges();
         }
 

@@ -32,7 +32,7 @@ else
             <tr>
                 <td>@donation.Giver.FirstName @donation.Giver.Middle @donation.Giver.LastName</td>
                 <td>@donation.Amount</td>
-                <td>@donation.DonationDate</td>
+                <td>@donation.DonationDate.ToString("d")</td>
                 <td>@donation.DonationType.Name</td>
                 <td>                    
                     @Html.ActionLink("Detail", "Detail", new {  id = donation.ID }) |

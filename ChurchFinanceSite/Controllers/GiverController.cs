@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
 using ChurchFinanceSite.ViewModels;
+using System.Net;
+using System;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -77,6 +79,29 @@ namespace ChurchFinanceSite.Controllers
                 return HttpNotFound();
             return View("GiverForm", vm);
         }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var giverToDelete = _context.Givers.FirstOrDefault(x => x.ID == id);
+
+            if (giverToDelete == null)
+                return HttpNotFound();
+            try
+            {
+                _context.Givers.Remove(giverToDelete);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return RedirectToAction("Index");
+        }
+
        
+
     }
 }
