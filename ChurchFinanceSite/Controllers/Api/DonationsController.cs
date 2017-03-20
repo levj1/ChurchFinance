@@ -1,4 +1,6 @@
-﻿using ChurchFinanceSite.Models;
+﻿using AutoMapper;
+using ChurchFinanceSite.Models;
+using ChurchFinanceSite.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,38 +23,45 @@ namespace ChurchFinanceSite.Controllers.Api
         }
 
         // Get api/Donations
-        public IEnumerable<Donation> GetDonations()
+        public IEnumerable<DonationDto> GetDonations()
         {
-            return _context.Donations.ToList();
+            return _context.Donations.ToList().Select(Mapper.Map<Donation, DonationDto>);
+        }
+
+        public IHttpActionResult GetDonation(int? id)
+        {
+            var donation = _context.Donations.Where(x => x.ID == id).SingleOrDefault();
+            if (donation == null)
+                return NotFound();
+
+            return Ok(Mapper.Map<Donation, DonationDto>(donation));
         }
 
         // Post 
         [HttpPost]
-        public Donation CreateDonation(Donation donation)
+        public IHttpActionResult CreateDonation(DonationDto donationDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-
+                return BadRequest();
+            var donation = Mapper.Map<DonationDto, Donation>(donationDto);
             _context.Donations.Add(donation);
             _context.SaveChanges();
 
-            return donation;
+            donationDto.ID = donation.ID;
+            return Created(new Uri(Request.RequestUri + "/" + donation.ID), donationDto);
         }
 
         // Put 
-        public void UpdateDonation(int id, Donation donation)
+        public void UpdateDonation(int id, DonationDto donationDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             var dbDonation = _context.Donations.FirstOrDefault(x => x.ID == id);
-            if (donation == null)
+            if (dbDonation == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            dbDonation.Amount = donation.Amount;
-            dbDonation.DonationDate = donation.DonationDate;
-            dbDonation.DonationTypeID = donation.DonationTypeID;
-            dbDonation.GiverID = donation.GiverID;
+            Mapper.Map(donationDto, dbDonation);
 
             _context.SaveChanges();
         }

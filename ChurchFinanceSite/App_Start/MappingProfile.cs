@@ -14,6 +14,8 @@ namespace ChurchFinanceSite.App_Start
         {
             Mapper.CreateMap<Giver, GiverDto>();
             Mapper.CreateMap<GiverDto, Giver>();
+            Mapper.CreateMap<Donation, DonationDto>();
+            Mapper.CreateMap<DonationDto, Donation>();
         }
     }
 }
