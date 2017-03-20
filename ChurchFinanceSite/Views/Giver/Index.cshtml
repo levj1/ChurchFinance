@@ -5,13 +5,14 @@
 }
 
 <h2>Givers</h2>
+@Html.ActionLink("Add a New Giver", "New")
 @if (!Model.Any())
 {
     <text>There are no givers yet.</text>
 }
 else
 {
-<table class="table table-striped table-hover ">
+<table class="table table-striped table-hover" id="givers">
     <thead>
         <tr>
             <th>First Name</th>
@@ -38,9 +39,10 @@ else
                     @item.Address.City, @item.Address.State @item.Address.ZipCode
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, null)|
-                    @Html.ActionLink("Detail", "Detail", new { id = item.ID }, null)|
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, null)
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, null) |
+                    @Html.ActionLink("Detail", "Detail", new { id = item.ID }, null) |
+                    <button data-giver-id="@item.ID" class="btn-link js-delete">Delete</button>
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, null) |*@
                 </td>
             </tr>
         }
@@ -48,3 +50,24 @@ else
 </table> 
 }
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#givers .js-delete").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/givers/" + button.attr("data-giver-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        })
+                    }
+                });
+                
+            });
+        });
+    </script>
+    }
