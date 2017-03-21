@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Giver.ID == 0)
+@if (Model.Giver == null)
 {
     <h2>New Giver</h2>
 }
@@ -82,4 +82,5 @@ else
     </div>
 
 }
+@Html.ActionLink("Back to List", "Index")
 

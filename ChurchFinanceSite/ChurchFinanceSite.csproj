@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\DonationsController.cs" />
     <Compile Include="Controllers\Api\GiversController.cs" />
+    <Compile Include="Controllers\ContactEmailController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\GiverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -267,9 +268,14 @@
     <Compile Include="Migrations\201703162013332_DonationAddProperty.Designer.cs">
       <DependentUpon>201703162013332_DonationAddProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703211312337_AddContactEmail.cs" />
+    <Compile Include="Migrations\201703211312337_AddContactEmail.Designer.cs">
+      <DependentUpon>201703211312337_AddContactEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\ContactEmail.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\DonationType.cs" />
     <Compile Include="Models\DTOs\DonationDto.cs" />
@@ -280,6 +286,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ContactViewModel.cs" />
     <Compile Include="ViewModels\DonationFormViewModel.cs" />
     <Compile Include="ViewModels\DonationViewModel.cs" />
     <Compile Include="ViewModels\EditDonation.cs" />
@@ -357,6 +364,7 @@
     <Content Include="Views\Giver\GiverForm.cshtml" />
     <Content Include="Views\Donation\DonationForm.cshtml" />
     <Content Include="Views\Donation\Edit.cshtml" />
+    <Content Include="Views\ContactEmail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703162013332_DonationAddProperty.resx">
       <DependentUpon>201703162013332_DonationAddProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703211312337_AddContactEmail.resx">
+      <DependentUpon>201703211312337_AddContactEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

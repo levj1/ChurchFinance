@@ -1,0 +1,17 @@
+
+
+- Church Finance
+  track donation of all kinds 
+  pay online (recurring donation)
+  send monthy reports 
+  
+- Church Managment
+  Create group
+  Take attendence
+  Send email/text to group members
+
+ - Church Nursery 
+	Check kids in/out
+
+ - Visitor (follow up)
+ - Event and calendar 
