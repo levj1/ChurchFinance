@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace ChurchFinanceSite.Controllers.Api
 {
+    [Authorize]
     public class DonationsController : ApiController
     {
         private ApplicationDbContext _context;

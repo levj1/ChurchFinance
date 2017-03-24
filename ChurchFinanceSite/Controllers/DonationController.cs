@@ -9,6 +9,7 @@ using System.Net;
 
 namespace ChurchFinanceSite.Controllers
 {
+    [Authorize(Roles = RoleName.CanManageFinance)]
     public class DonationController : Controller
     {
         private ApplicationDbContext _context;
@@ -21,13 +22,20 @@ namespace ChurchFinanceSite.Controllers
         {
             _context.Dispose();
         }
+
+        [AllowAnonymous]
         // GET: Donation
         public ActionResult Index()
         {
             var donations = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
-            return View(donations);
+
+            if(User.IsInRole(RoleName.CanManageFinance))
+                return View("Index", donations);
+
+            return View("IndexReadOnly", donations);
         }
 
+        [AllowAnonymous]
         public ActionResult Detail(int id)
         {
             var donation = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).SingleOrDefault(c => c.ID == id);

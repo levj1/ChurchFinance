@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ChurchFinanceSite.Models.Donation>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Donations</h2>
+
+@if (!Model.Any())
+{
+    <div>
+        <text>No donation yet.</text>
+    </div>
+}
+else
+{
+<table class="table table-striped table-hover" id="donations">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Donation Type</th>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var donation in Model)
+        {
+            <tr>
+                <td>@donation.Giver.FirstName @donation.Giver.Middle @donation.Giver.LastName</td>
+                <td>@donation.Amount</td>
+                <td>@donation.DonationDate.ToString("d")</td>
+                <td>@donation.DonationType.Name</td>
+                <td>                    
+                    @Html.ActionLink("Detail", "Detail", new {  id = donation.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 
+}
