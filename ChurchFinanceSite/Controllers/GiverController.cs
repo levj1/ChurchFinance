@@ -8,6 +8,7 @@ using System;
 
 namespace ChurchFinanceSite.Controllers
 {
+    [Authorize(Roles = RoleName.CanManageFinance)]
     public class GiverController : Controller
     {
         private ApplicationDbContext _context;
@@ -21,13 +22,19 @@ namespace ChurchFinanceSite.Controllers
         {
             _context.Dispose();
         }
+
+        [AllowAnonymous]
         // GET: Giver
         public ActionResult Index()
         {
-            var givers = _context.Givers.Include(c => c.Address).ToList();
-            return View(givers.ToList());
+            //var givers = _context.Givers.Include(c => c.Address).ToList();
+            //if(User.IsInRole(RoleName.CanManageFinance))
+            //    return View("Index", givers.ToList());
+
+            return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Detail(int id)
         {
             var giver = _context.Givers.Include(c => c.Address).SingleOrDefault(c => c.ID == id);
@@ -42,6 +49,7 @@ namespace ChurchFinanceSite.Controllers
             var vm = new GiverFormViewModel();
             return View("GiverForm", vm);
         }
+
         [HttpPost]
         public ActionResult Save(GiverFormViewModel vm)
         {
