@@ -54,9 +54,9 @@ namespace ChurchFinanceSite
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1592455630785237",
+               appSecret: "4976c28527b55bd8569795d16e4becda");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

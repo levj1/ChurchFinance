@@ -5,20 +5,16 @@ using System.Web;
 
 namespace ChurchFinanceSite.Models.Respository
 {
-    interface IGiverRepository: IDisposable
-    {
-        IEnumerable<Giver> GetGivers();
-        Giver GetGiver();
-        void UpdateGiver();
-        void DeleteGiver();
-        void Save();
-    }
     public class GiverRepository: IGiverRepository
     {
         ApplicationDbContext _context;
+        public GiverRepository()
+        {
+            _context = new ApplicationDbContext();
+        }
         public GiverRepository(ApplicationDbContext context)
         {
-            _context = context;
+            var givers = context.Givers.ToList();
         }
 
         public void DeleteGiver()
