@@ -28,7 +28,8 @@ namespace ChurchFinanceSite.Controllers
         public ActionResult Index()
         {
             var donations = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
-
+            var userId = User.Identity.Name;
+            ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
             if(User.IsInRole(RoleName.CanManageFinance))
                 return View("Index", donations);
 

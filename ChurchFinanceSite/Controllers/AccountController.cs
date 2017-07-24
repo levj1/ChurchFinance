@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ChurchFinanceSite.Models;
+using ChurchFinanceSite.ViewModels.Account;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ChurchFinanceSite.Controllers
