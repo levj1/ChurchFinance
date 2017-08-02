@@ -5,6 +5,7 @@ namespace ChurchFinanceSite.Models
     public class Address
     {
         public int ID { get; set; }
+        public string ApplicationUserId { get; set; }
 
         [Display(Name = "Address Line 1")]
         [StringLength(30)]
@@ -25,3 +26,4 @@ namespace ChurchFinanceSite.Models
         public string ZipCode { get; set; }
     }
 }
+

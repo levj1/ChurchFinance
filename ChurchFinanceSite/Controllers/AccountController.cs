@@ -19,9 +19,11 @@ namespace ChurchFinanceSite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _context;
 
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -153,10 +155,33 @@ namespace ChurchFinanceSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName
+                };
+                user.Addresses.Add(new Address { AddressLine1 = model.AddressLine1, AddressLine2 = model.AddressLine2, City = model.City, State = model.State, ZipCode = model.ZipCode });
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Add Create Giver with that userid
+                    Giver giver = new Giver
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Middle = user.MiddleName,
+                        AppUserId = user.Id,
+                        AddressId = user.Addresses.Select(x => x.ID).FirstOrDefault()
+                        
+                    };
+
+                    // Insert new user in giver table
+                    _context.Givers.Add(giver);
+                    _context.SaveChanges();
+
                     // temp code - to create admin user
                     //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     //var roleManager = new RoleManager<IdentityRole>(roleStore);
@@ -427,6 +452,7 @@ namespace ChurchFinanceSite.Controllers
                     _signInManager = null;
                 }
             }
+            _context.Dispose();
 
             base.Dispose(disposing);
         }

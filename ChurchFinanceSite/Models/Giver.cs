@@ -21,6 +21,7 @@ namespace ChurchFinanceSite.Models
         public Address Address { get; set; }
 
         public int AddressId { get; set; }
+        public string AppUserId { get; set; }
 
         public string FullName {
             get

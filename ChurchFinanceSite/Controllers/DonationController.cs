@@ -6,6 +6,7 @@ using ChurchFinanceSite.ViewModels;
 using System.Collections.Generic;
 using System;
 using System.Net;
+using Microsoft.AspNet.Identity;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -28,8 +29,11 @@ namespace ChurchFinanceSite.Controllers
         public ActionResult Index()
         {
             var donations = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
-            var userId = User.Identity.Name;
+            var userId = User.Identity.GetUserId();
+            //var giverUserId = _context.Givers.Select(x => x.ApplicationUserId).FirstOrDefault();
+            
             ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
+
             if(User.IsInRole(RoleName.CanManageFinance))
                 return View("Index", donations);
 
