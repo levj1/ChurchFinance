@@ -588,6 +588,7 @@
     <Content Include="Views\ContactEmail\Index.cshtml" />
     <Content Include="Views\Giver\IndexReadOnly.cshtml" />
     <Content Include="Views\Donation\IndexReadOnly.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

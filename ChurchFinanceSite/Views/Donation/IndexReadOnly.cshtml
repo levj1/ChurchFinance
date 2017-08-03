@@ -5,9 +5,9 @@
 }
 
 <h2>Donations</h2>
-<div>
-    @Html.ActionLink("Create New", "DonationForm")
-</div>
+<br />
+@Html.ActionLink("Give Online", "GiveOnline")
+
 @if (!Model.Any())
 {
     <div>
@@ -42,3 +42,4 @@ else
     </tbody>
 </table> 
 }
+@Html.ActionLink("Give Online", "GiveOnline")

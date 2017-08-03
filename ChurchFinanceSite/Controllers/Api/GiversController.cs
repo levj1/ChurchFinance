@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace ChurchFinanceSite.Controllers.Api
 {
-    //[Authorize]
+    [Authorize(Roles = RoleName.CanManageFinance)]
     public class GiversController : ApiController
     {
         private ApplicationDbContext _context;

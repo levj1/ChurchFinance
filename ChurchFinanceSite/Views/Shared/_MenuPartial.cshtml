@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNet.Identity
+<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+    <li>@Html.ActionLink("Contact", "Index", "ContactEmail")</li>
+    @if (User.IsInRole("CanManageFinance"))
+    {
+        <li>@Html.ActionLink("Givers", "Index", "Giver")</li>
+        <li>@Html.ActionLink("Donations", "Index", "Donation")</li>
+    }
+    else if (User.Identity.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("My Donations", "Index", "Donation")</li>
+
+    }
+</ul>

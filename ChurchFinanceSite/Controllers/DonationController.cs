@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using System.Net;
 using Microsoft.AspNet.Identity;
+using System.Security.Principal;
 
 namespace ChurchFinanceSite.Controllers
 {
@@ -23,29 +24,32 @@ namespace ChurchFinanceSite.Controllers
         {
             _context.Dispose();
         }
-
-        [AllowAnonymous]
+        
         // GET: Donation
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-
-            if (User.IsInRole(RoleName.CanManageFinance))
+            if (HasManangeFinancePermission(User))
             {
                 var donation = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
                 return View("Index", donation);
-            }else if (!string.IsNullOrEmpty(userId))
+            }
+            else if (!string.IsNullOrEmpty(User.Identity.GetUserId()))
             {
+                string currentUserID = User.Identity.GetUserId();
                 var donationsForThisUser = (from d in _context.Donations
-                                          join g in _context.Givers on d.GiverID equals g.ID
-                                          where g.AppUserId == userId
-                                          select d).Include(x => x.DonationType).Include(x => x.Giver).ToList();
+                                            join g in _context.Givers on d.GiverID equals g.ID
+                                            where g.AppUserId == currentUserID
+                                            select d).Include(x => x.DonationType).Include(x => x.Giver).ToList();
                 return View("IndexReadOnly", donationsForThisUser);
             }
             return RedirectToAction("Index");
         }
 
-        [AllowAnonymous]
+        private bool HasManangeFinancePermission(IPrincipal user)
+        {
+            return user.IsInRole(RoleName.CanManageFinance);
+        }
+
         public ActionResult Detail(int id)
         {
             var donation = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).SingleOrDefault(c => c.ID == id);
@@ -56,6 +60,7 @@ namespace ChurchFinanceSite.Controllers
         
         public ActionResult DonationForm()
         {
+            //var currentUser = 
             var viewModel = new DonationFormViewModel
             {
                 DonationTypes = GetDonationTypes(),
@@ -64,7 +69,7 @@ namespace ChurchFinanceSite.Controllers
             };
             return View(viewModel);
         }
-
+        [Authorize(Roles = RoleName.CanManageFinance)]
         [HttpPost]
         public ActionResult DonationForm(DonationFormViewModel donationVM)
         {
@@ -99,7 +104,7 @@ namespace ChurchFinanceSite.Controllers
             return View("DonationForm", viewModel);
         }
 
-        
+        [Authorize(Roles = RoleName.CanManageFinance)]
         public ActionResult Edit(int? id)
         {
             var donation = _context.Donations.Where(x => x.ID == id).SingleOrDefault();
@@ -117,6 +122,7 @@ namespace ChurchFinanceSite.Controllers
             return View(donationVM);
         }
 
+        [Authorize(Roles = RoleName.CanManageFinance)]
         [HttpPost]
         public ActionResult Edit(EditDonation donationVM)
         {
@@ -148,6 +154,7 @@ namespace ChurchFinanceSite.Controllers
             return View(EditDonationVM);
         }
 
+        [Authorize(Roles = RoleName.CanManageFinance)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -191,6 +198,7 @@ namespace ChurchFinanceSite.Controllers
                 });
             return new SelectList(givers, "Value", "Text");
         }
+        
 
     }
 }

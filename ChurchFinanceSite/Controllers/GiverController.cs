@@ -22,8 +22,7 @@ namespace ChurchFinanceSite.Controllers
         {
             _context.Dispose();
         }
-
-        [AllowAnonymous]
+        
         // GET: Giver
         public ActionResult Index()
         {
@@ -33,8 +32,7 @@ namespace ChurchFinanceSite.Controllers
 
             return View();
         }
-
-        [AllowAnonymous]
+               
         public ActionResult Detail(int id)
         {
             var giver = _context.Givers.Include(c => c.Address).SingleOrDefault(c => c.ID == id);

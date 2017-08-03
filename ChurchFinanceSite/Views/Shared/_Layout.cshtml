@@ -20,24 +20,7 @@
                 @Html.ActionLink("Church Finance", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Index", "ContactEmail")</li>
-                    <li>@Html.ActionLink("Givers", "Index", "Giver")</li>
-                    <li>@Html.ActionLink("Donations", "Index", "Donation")</li>
-                    <li>@Html.ActionLink("Reporting", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Give Online", "Index", "Home")</li>
-                    @*<div class="dropdown">
-                        <li class="dropdown-toggle" id="Giving" data-toggle="dropdown">Giving
-                                <span class="caret"></span>
-                        </li>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="Giving">
-                            <li role="presentation">@Html.ActionLink("Givers", "Index", "Giver")</li>
-                            <li>@Html.ActionLink("Donations", "Index", "Donation", new { @role = "menuitem", @tabindex = -1 })</li>
-                        </ul>
-                    </div>*@
-                </ul>
+                @Html.Partial("_MenuPartial")
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
