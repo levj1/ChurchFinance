@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace ChurchFinanceSite.Controllers
 {
-    [Authorize(Roles = RoleName.CanManageFinance)]
+    [Authorize]
     public class DonationController : Controller
     {
         private ApplicationDbContext _context;
@@ -28,16 +28,21 @@ namespace ChurchFinanceSite.Controllers
         // GET: Donation
         public ActionResult Index()
         {
-            var donations = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
             var userId = User.Identity.GetUserId();
-            //var giverUserId = _context.Givers.Select(x => x.ApplicationUserId).FirstOrDefault();
-            
-            ApplicationUser currentUser = _context.Users.FirstOrDefault(x => x.Id == userId);
 
-            if(User.IsInRole(RoleName.CanManageFinance))
-                return View("Index", donations);
-
-            return View("IndexReadOnly", donations);
+            if (User.IsInRole(RoleName.CanManageFinance))
+            {
+                var donation = _context.Donations.Include(x => x.DonationType).Include(x => x.Giver).ToList();
+                return View("Index", donation);
+            }else if (!string.IsNullOrEmpty(userId))
+            {
+                var donationsForThisUser = (from d in _context.Donations
+                                          join g in _context.Givers on d.GiverID equals g.ID
+                                          where g.AppUserId == userId
+                                          select d).Include(x => x.DonationType).Include(x => x.Giver).ToList();
+                return View("IndexReadOnly", donationsForThisUser);
+            }
+            return RedirectToAction("Index");
         }
 
         [AllowAnonymous]
@@ -48,7 +53,7 @@ namespace ChurchFinanceSite.Controllers
                 return HttpNotFound();
             return View(donation);
         }
-
+        
         public ActionResult DonationForm()
         {
             var viewModel = new DonationFormViewModel
