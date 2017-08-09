@@ -229,6 +229,7 @@
     <Compile Include="Controllers\Api\TestRepositoryController.cs" />
     <Compile Include="Controllers\ContactEmailController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\GiverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -589,6 +590,7 @@
     <Content Include="Views\Giver\IndexReadOnly.cshtml" />
     <Content Include="Views\Donation\IndexReadOnly.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Reporting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

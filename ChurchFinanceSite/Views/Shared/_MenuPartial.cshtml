@@ -7,10 +7,10 @@
     {
         <li>@Html.ActionLink("Givers", "Index", "Giver")</li>
         <li>@Html.ActionLink("Donations", "Index", "Donation")</li>
+        <li>@Html.ActionLink("Reporting", "Index","Reporting")</li>
     }
     else if (User.Identity.IsAuthenticated)
     {
         <li>@Html.ActionLink("My Donations", "Index", "Donation")</li>
-
     }
 </ul>

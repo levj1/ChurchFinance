@@ -37,7 +37,7 @@ else
                 <td>                    
                     @Html.ActionLink("Detail", "Detail", new {  id = donation.ID }) |
                     @Html.ActionLink("Edit", "Edit", new { id = donation.ID })|
-                    <button data-donation-id="@donation.ID" class="btn-link js-delete">Delete</button>
+                    @Html.ActionLink("Delete", "Delete", new { id = donation.ID })
                 </td>
             </tr>
         }

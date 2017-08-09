@@ -26,11 +26,8 @@ namespace ChurchFinanceSite.Controllers
         // GET: Giver
         public ActionResult Index()
         {
-            //var givers = _context.Givers.Include(c => c.Address).ToList();
-            //if(User.IsInRole(RoleName.CanManageFinance))
-            //    return View("Index", givers.ToList());
-
-            return View();
+            var givers = _context.Givers.Include(c => c.Address).ToList();
+            return View("Index", givers.ToList());
         }
                
         public ActionResult Detail(int id)

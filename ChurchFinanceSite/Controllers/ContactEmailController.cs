@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ChurchFinanceSite.Controllers
 {
+    [AllowAnonymous]
     public class ContactEmailController : Controller
     {
         // GET: ContactEmail
